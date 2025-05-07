@@ -6,10 +6,16 @@
 </head>
 <body>
     <form method="POST">
-        고객성명 <input type="text" name="customer"><br><br>
+        고객성명 <input type="text" name="customer">
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+        <input type="submit" name="submit" value="합계"><br><br>
         <table border="1" cellspacing="0" cellpadding="5">
     <tr>
-        <th>No</th><th>구분</th><th>어린이</th><th>어른</th><th>비고</th>
+        <th>No</th>
+        <th>구분</th>
+        <th>어린이</th>
+        <th>어른</th>
+        <th>비고</th>
     </tr>
     <?php
     $tickets = [
@@ -41,7 +47,6 @@
     }
     ?>
 </table><br>
-        <input type="submit" name="submit" value="합계">
     </form>
 
     <?php
