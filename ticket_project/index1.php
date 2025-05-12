@@ -42,8 +42,7 @@
                 </tr>";
 
                 echo "<tr>
-                    <td colspan='2'></td>
-                    <td colspan='2'></td>
+                    
                 </tr>";
             }
             ?>
