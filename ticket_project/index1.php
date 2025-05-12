@@ -10,43 +10,44 @@
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
         <input type="submit" name="submit" value="합계"><br><br>
         <table border="1" cellspacing="0" cellpadding="5">
-    <tr>
-        <th>No</th>
-        <th>구분</th>
-        <th>어린이</th>
-        <th>어른</th>
-        <th>비고</th>
-    </tr>
-    <?php
-    $tickets = [
-        ["입장권", 7000, 10000, "입장"],
-        ["BIG3", 12000, 18000, "입장+놀이3종"],
-        ["자유이용권", 21000, 28000, "입장+놀이자유"],
-        ["연간이용권", 70000, 90000, "입장+놀이자유"]
-    ];
-    foreach ($tickets as $i => $ticket) {
-        echo "<tr>
-            <td>" . ($i+1) . "</td>
-            <td>{$ticket[0]}</td>
-            <td>
-                <span style='display:inline-block; width:60px;'>{$ticket[1]}</span>
-                <select name='child_{$i}' style='width:50px;'>";
-        for ($j = 0; $j <= 10; $j++)
-            echo "<option value='$j'>$j</option>";
-        echo "</select>
-            </td>
-            <td>
-                <span style='display:inline-block; width:60px;'>{$ticket[2]}</span>
-                <select name='adult_{$i}' style='width:50px;'>";
-        for ($j = 0; $j <= 10; $j++)
-            echo "<option value='$j'>$j</option>";
-        echo "</select>
-            </td>
-            <td>{$ticket[3]}</td>
-        </tr>";
-    }
-    ?>
-</table><br>
+            <tr>
+                <th>No</th>
+                <th>구분</th>
+                <th colspan="2">어린이</th>
+                <th colspan="2">어른</th>
+                <th>비고</th>
+            </tr>
+            <?php
+            $tickets = [
+                ["입장권", 7000 , 10000  ,"입장"],
+                ["BIG3", 12000 , 18000,  "입장+놀이3종"],
+                ["자유이용권", 21000,  28000 , "입장+놀이자유"],
+                ["연간이용권", 70000 , 90000 , "입장+놀이자유"]
+            ];
+            foreach ($tickets as $i => $ticket) {
+                echo "<tr>
+                    <td rowspan='2'>" . ($i+1) . "</td>
+                    <td rowspan='2'>{$ticket[0]}</td>
+                    <td>{$ticket[1]}</td>
+                    <td><select name='child_{$i}' style='width:50px;'>";
+                for ($j = 0; $j <= 10; $j++)
+                    echo "<option value='$j'>$j</option>";
+                echo "</select></td>
+                    <td>{$ticket[2]}</td>
+                    <td><select name='adult_{$i}' style='width:50px;'>";
+                for ($j = 0; $j <= 10; $j++)
+                    echo "<option value='$j'>$j</option>";
+                echo "</select></td>
+                    <td rowspan='2'>{$ticket[3]}</td>
+                </tr>";
+
+                echo "<tr>
+                    <td colspan='2'></td>
+                    <td colspan='2'></td>
+                </tr>";
+            }
+            ?>
+        </table><br>
     </form>
 
     <?php
