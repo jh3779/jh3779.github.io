@@ -1,3 +1,12 @@
+<?php
+// 공통 영역에서 선언 (폼 + 결과 모두 사용 가능)
+$tickets = [
+    ["입장권", 7000 , 10000  ,"입장"],
+    ["BIG3", 12000 , 18000,  "입장+놀이3종"],
+    ["자유이용권", 21000,  28000 , "입장+놀이자유"],
+    ["연간이용권", 70000 , 90000 , "입장+놀이자유"]
+];
+?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,12 +27,6 @@
                 <th>비고</th>
             </tr>
             <?php
-            $tickets = [
-                ["입장권", 7000 , 10000  ,"입장"],
-                ["BIG3", 12000 , 18000,  "입장+놀이3종"],
-                ["자유이용권", 21000,  28000 , "입장+놀이자유"],
-                ["연간이용권", 70000 , 90000 , "입장+놀이자유"]
-            ];
             foreach ($tickets as $i => $ticket) {
                 echo "<tr>
                     <td rowspan='2'>" . ($i+1) . "</td>
@@ -39,11 +42,7 @@
                     echo "<option value='$j'>$j</option>";
                 echo "</select></td>
                     <td rowspan='2'>{$ticket[3]}</td>
-                </tr>";
-
-                echo "<tr>
-                    
-                </tr>";
+                </tr><tr></tr>";
             }
             ?>
         </table><br>
@@ -52,7 +51,6 @@
     <?php
     if (isset($_POST['submit'])) {
         $total = 0;
-        $summary = [];
         $customer = $_POST['customer'];
         date_default_timezone_set('Asia/Seoul');
         echo "<br><br>" . date("Y년 m월 d일 A h:i") . "<br>";
@@ -61,18 +59,25 @@
             echo "$customer 고객님 감사합니다.<br>";
         }
 
+        $hasSelection = false;
+
         foreach ($tickets as $i => $ticket) {
             $c = intval($_POST["child_$i"]);
             $a = intval($_POST["adult_$i"]);
             $price = $c * $ticket[1] + $a * $ticket[2];
             $total += $price;
 
-            if ($c > 0) $summary[] = "어린이 {$ticket[0]} $c매";
-            if ($a > 0) $summary[] = "어른 {$ticket[0]} $a매";
+            if ($c > 0 || $a > 0) {
+                $hasSelection = true;
+                echo "{$ticket[0]} - ";
+                if ($c > 0) echo "어린이 {$c}매 ";
+                if ($a > 0) echo "어른 {$a}매 ";
+                echo "<br>";
+            }
         }
 
-        foreach ($summary as $line) {
-            echo "$line<br>";
+        if (!$hasSelection) {
+            echo "선택된 항목이 없습니다.<br>";
         }
 
         echo "<br>합계 " . number_format($total) . "원입니다.";
