@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>아날로그 시계</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    canvas {
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="clockCanvas" width="400" height="400"></canvas>
+
+<script>
+  const canvas = document.getElementById('clockCanvas');
+  const ctx = canvas.getContext('2d');
+  const radius = canvas.width / 2;
+  ctx.translate(radius, radius);
+
+  function drawClock() {
+    drawFace(ctx, radius);
+    drawNumbers(ctx, radius);
+    drawTime(ctx, radius);
+  }
+
+  function drawFace(ctx, radius) {
+    ctx.beginPath();
+    ctx.arc(0, 0, radius - 5, 0, 2 * Math.PI);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(0, 0, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = '#333';
+    ctx.fill();
+  }
+
+  function drawNumbers(ctx, radius) {
+    ctx.font = radius * 0.15 + "px Arial";
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
+    for (let num = 1; num <= 12; num++) {
+      let ang = num * Math.PI / 6;
+      let x = radius * 0.85 * Math.sin(ang);
+      let y = -radius * 0.85 * Math.cos(ang);
+      ctx.fillText(num.toString(), x, y);
+    }
+  }
+
+  function drawTime(ctx, radius) {
+    const now = new Date();
+    let hour = now.getHours();
+    let minute = now.getMinutes();
+    let second = now.getSeconds();
+
+    // 시
+    hour = hour % 12;
+    hour = (hour * Math.PI / 6) + 
+           (minute * Math.PI / (6 * 60)) +
+           (second * Math.PI / (360 * 60));
+    drawHand(ctx, hour, radius * 0.5, 6);
+
+    // 분
+    minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
+    drawHand(ctx, minute, radius * 0.75, 4);
+
+    // 초
+    second = second * Math.PI / 30;
+    drawHand(ctx, second, radius * 0.85, 2, 'red');
+  }
+
+  function drawHand(ctx, pos, length, width, color = '#000') {
+    ctx.beginPath();
+    ctx.lineWidth = width;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = color;
+    ctx.moveTo(0, 0);
+    ctx.rotate(pos);
+    ctx.lineTo(0, -length);
+    ctx.stroke();
+    ctx.rotate(-pos);
+  }
+
+  setInterval(drawClock, 1000);
+</script>
+
+</body>
+</html>
