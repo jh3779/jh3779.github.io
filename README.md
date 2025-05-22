@@ -10,5 +10,4 @@
 [**homework3-3**](https://jh3779.github.io/homework3-3.png)   \
 [**homework3-4**](https://jh3779.github.io/homework3-4.png)   \    
 [**homework3-5**](https://jh3779.github.io/homework3-5.png)   \
-[**ticket_project**](https://jh3779.github.io/ticket_project)   \
 [**homework5**](https://jh3779.github.io/clock.html) 
