@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+<body>
 var width, height, center;
 var points = 10;
 var smooth = true;
@@ -53,3 +56,5 @@ function onMouseDown(event) {
 function onResize(event) {
 	initializePath();
 }
+</body>
+</html>
